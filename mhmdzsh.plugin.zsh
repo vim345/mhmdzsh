@@ -39,6 +39,7 @@ export CUSTOM_VIMRC=$VIMDIR/personal.vim
 export GOPATH=$HOME/projects
 export PATH=$GOPATH/bin:$PATH
 export GITHUB=$HOME/github
+export VIM345=$GITHUB/vim345
 
 alias cp='cp -i'
 alias diff='colordiff'
