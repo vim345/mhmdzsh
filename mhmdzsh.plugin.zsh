@@ -7,7 +7,8 @@ _has() {
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-setopt appendhistory
+setopt noincappendhistory
+setopt nosharehistory
 unsetopt autocd beep
 bindkey -e
 # End of lines configured by zsh-newuser-install
