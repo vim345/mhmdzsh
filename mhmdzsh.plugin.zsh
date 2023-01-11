@@ -5,10 +5,11 @@ _has() {
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=1000000
+SAVEHIST=1000000
 setopt noincappendhistory
 setopt nosharehistory
+setopt EXTENDED_HISTORY
 unsetopt autocd beep
 bindkey -e
 # End of lines configured by zsh-newuser-install
@@ -65,6 +66,14 @@ alias replace_str_mac='find . -name "*.html" -print0 | xargs -0 sed -i "" -e "s/
 alias replace_str_linux='find . -name "*.rb" -type f -exec sed -i -e "s/regex/replacement/g" -- {} +'
 # Fixssh in tmux.
 alias fixssh='export $(tmux show-environment | grep \^SSH_AUTH_SOCK=)'
+alias delete_git_branches="git branch | grep -v "master" | xargs git branch -D"
+# Update ctags
+alias u_ctags='/usr/bin/ctags -f .tags -L <(find . -name "*.py") --fields=+iaS --python-kinds=-iv --extra=+q --exclude=virtualenv_run'
+# alias u_ctags='/usr/bin/ctags -R --fields=+l --languages=python --exclude=virtualenv_run --python-kinds=-iv -f .tags $(python -c "import os, sys; print(' '.join('{}'.format(d) for d in sys.path if os.path.isdir(d)))")'
+function u_ctags() {
+    /usr/bin/ctags -R --fields=+l --languages=python --exclude=virtualenv_run --python-kinds=-iv -f .tags $(python -c "import os, sys; print(' '.join('{}'.format(d) for d in sys.path if os.path.isdir(d)))")
+}
+alias java_ctags='/usr/bin/ctags -f .tags -L <(find . -name "*.java") --fields=+iaS --sort=yes --extra=+q'
 
 # Predictable SSH authentication socket location.
 SOCK="/tmp/ssh-agent-$USER-screen"
