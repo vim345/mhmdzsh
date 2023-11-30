@@ -3,6 +3,8 @@ _has() {
   return $( whence $1 &>/dev/null )
 }
 
+alias fzf='/nail/home/mohm/.fzf/bin/fzf'
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000000
@@ -17,7 +19,10 @@ bindkey -e
 zstyle :compinstall filename '~/.zshrc_comp'
 
 autoload -Uz compinit
-compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  compinit
+done
+compinit -C
 # End of lines added by compinstall
 
 # Format tab completion.
