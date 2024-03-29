@@ -126,5 +126,13 @@ default_upstream() {
 
 # Open fzf results in nvim.
 vimfzf() {
-  nvim $(fzf)
+  local fname
+  fname=$(fzf) || return
+  nvim $fname
+}
+
+function fcd() {
+    local dirname
+    dirname=$(find -type d | fzf) || return
+    cd "$dirname"
 }
