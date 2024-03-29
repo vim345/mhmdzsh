@@ -3,8 +3,6 @@ _has() {
   return $( whence $1 &>/dev/null )
 }
 
-alias fzf='/nail/home/mohm/.fzf/bin/fzf'
-
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000000
@@ -124,4 +122,9 @@ default_origin() {
 
 default_upstream() {
   git remote show upstream | sed -n "/HEAD branch/s/.*: //p"
+}
+
+# Open fzf results in nvim.
+vimfzf() {
+  nvim $(fzf)
 }
