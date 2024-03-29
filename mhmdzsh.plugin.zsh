@@ -38,10 +38,7 @@ colors
 setopt prompt_subst
 
 # Env Variables.
-export EDITOR=vim
-export VIMDIR=$HOME/.vim
-export VIMRC=$VIMDIR/vimrc
-export CUSTOM_VIMRC=$VIMDIR/personal.vim
+export EDITOR=nvim
 export GOPATH=$HOME/projects
 export PATH=$GOPATH/bin:$PATH
 export GITHUB=$HOME/github
@@ -119,3 +116,12 @@ alias 6='cd -6'
 alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
+
+# Get the default branches for the origin and upstream repos
+default_origin() {
+  git remote show origin | sed -n "/HEAD branch/s/.*: //p"
+}
+
+default_upstream() {
+  git remote show upstream | sed -n "/HEAD branch/s/.*: //p"
+}
