@@ -136,3 +136,11 @@ function fcd() {
     dirname=$(find -type d | fzf) || return
     cd "$dirname"
 }
+
+# Get the current Linux user's full name
+export GIT_COMMITTER_NAME=$(getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1)
+
+# Also set the author name and email to the same values
+export GIT_AUTHOR_NAME=$GIT_COMMITTER_NAME
+export GIT_AUTHOR_EMAIL=$EMAIL
+
