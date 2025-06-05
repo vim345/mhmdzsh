@@ -13,14 +13,23 @@ setopt EXTENDED_HISTORY
 unsetopt autocd beep
 bindkey -e
 # End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
 zstyle :compinstall filename '~/.zshrc_comp'
 
-autoload -Uz compinit
-for dump in ~/.zcompdump(N.mh+24); do
-  compinit
-done
-compinit -C
+# Set the path to the dump file
+local dumpfile="${ZDOTDIR:-$HOME}/.zcompdump"
+
+# Check if the dump file exists AND is *not* older than 24 hours
+# The `(N.mh+24)` glob matches files *older* than 24h.
+# We want to load if it *exists* (`-s`) AND is *not* among those old files (`! [[ -e "$dumpfile"(mh+24) ]]`).
+if [[ -s "$dumpfile" ]] && ! [[ -e "$dumpfile"(mh+24) ]]; then
+  # Dump file exists and is recent enough (not older than 24h) - Load the cache (fast)
+  autoload -Uz compinit
+  compinit -C -d "$dumpfile"
+else
+  # Dump file is missing, empty, or older than 24h - Regenerate the cache (slow, but only when needed)
+  autoload -Uz compinit
+  compinit -D -d "$dumpfile"
+fi
 # End of lines added by compinstall
 
 # Format tab completion.
@@ -138,9 +147,10 @@ function fcd() {
 }
 
 # Get the current Linux user's full name
-export GIT_COMMITTER_NAME=$(getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1)
+# export GIT_COMMITTER_NAME=$(getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1)
 
 # Also set the author name and email to the same values
-export GIT_AUTHOR_NAME=$GIT_COMMITTER_NAME
-export GIT_AUTHOR_EMAIL=$EMAIL
+# export GIT_AUTHOR_NAME=$GIT_COMMITTER_NAME
+# export GIT_AUTHOR_EMAIL=$EMAIL
 
+export FZF_CTRL_R_OPTS="--no-sort"
