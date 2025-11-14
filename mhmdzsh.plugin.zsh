@@ -153,4 +153,16 @@ function fcd() {
 # export GIT_AUTHOR_NAME=$GIT_COMMITTER_NAME
 # export GIT_AUTHOR_EMAIL=$EMAIL
 
+# Set git name and email
+# Get the current Linux user's full name
+export GIT_COMMITTER_NAME=$(getent passwd $USER | cut -d ':' -f 5 | cut -d ',' -f 1)
+
+# Get the current Linux user's email
+export GIT_COMMITTER_EMAIL=$(getent passwd $USER | cut -d ':' -f 1)@$(hostname)
+
+# Also set the author name and email to the same values
+export GIT_AUTHOR_NAME=$GIT_COMMITTER_NAME
+export GIT_AUTHOR_EMAIL=$GIT_COMMITTER_EMAIL
+
 export FZF_HISTORY_COMMAND="fc -lnr 1"
+
