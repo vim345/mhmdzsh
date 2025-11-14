@@ -153,4 +153,4 @@ function fcd() {
 # export GIT_AUTHOR_NAME=$GIT_COMMITTER_NAME
 # export GIT_AUTHOR_EMAIL=$EMAIL
 
-export FZF_CTRL_R_OPTS="--no-sort"
+export FZF_HISTORY_COMMAND="fc -lnr 1"
